@@ -1,16 +1,15 @@
 name: C/C++ CI
+
 on: [push]
 
 jobs:
-	build:
-		runs-on: ubuntu-latest
-	steps:
-	- uses: actions/checkout@v2
-	- name: build-reld
-		run: make reld
-	- name: build-mod1
-		run: make mod1.mod
-	- name: build-mod2
-		run: make mod2.mod
-	- name: check-loader
-		run: reld mod2 mod1 mod1__main
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: build
+      run: make
+    - name: check
+      run: reld mod1__main mod1 mod2
