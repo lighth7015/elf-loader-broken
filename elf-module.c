@@ -7,6 +7,11 @@
 #include <string.h>
 #include "elf-module-private.h"
 
+size_t elf_module_get_size(elf_module_t *elf) { return elf->size; }
+void *elf_module_get_data(elf_module_t *elf) { return elf->data; }
+void elf_module_set_data(elf_module_t *elf, void *data) { elf->data = data; }
+static char *elf_module_sym_name(elf_module_t *elf, int offs) { return elf->names + offs; }
+
 static void elf_module_layout(elf_module_t *elf) {
 	Elf_Shdr *shdr;
 	int i = 1;
@@ -139,11 +144,6 @@ int elf_module_init(elf_module_t *elf, void *data, size_t size) {
 	
 	return result;
 }
-
-size_t elf_module_get_size(elf_module_t *elf) { return elf->size; }
-void *elf_module_get_data(elf_module_t *elf) { return elf->data; }
-void elf_module_set_data(elf_module_t *elf, void *data) { elf->data = data; }
-static char *elf_module_sym_name(elf_module_t *elf, int offs) { return elf->names + offs; }
 
 int elf_module_load(elf_module_t *elf, void *dest, elf_module_link_cbs_t *cbs) {
 	elf->start = dest;
