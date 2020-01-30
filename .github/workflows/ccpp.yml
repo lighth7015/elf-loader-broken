@@ -7,10 +7,10 @@ jobs:
 	steps:
 	- uses: actions/checkout@v2
 	- name: build-reld
-		run: clang -m32 -o reld -pedantic -Iinclude elf-module.c elf-module-i386.c reld.c
+		run: make reld
 	- name: build-mod1
-		run: clang -m32 -fno-common -fno-builtin -Wno-implicit-function-declaration -c -o mod1.mod mod1.c
+		run: make mod1.mod
 	- name: build-mod2
-		run: clang -m32 -fno-common -fno-builtin -Wno-implicit-function-declaration -c -o mod2.mod mod2.c
+		run: make mod2.mod
 	- name: check-loader
 		run: reld mod2 mod1 mod1__main
